@@ -1,0 +1,19 @@
+{
+  "name": "osa3_puhelinluettelo",
+  "version": "0.0.1",
+  "description": "Puhelinluettelon backend",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "watch": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tapani Honkanen",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^1.19.3"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
