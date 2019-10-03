@@ -55,6 +55,24 @@ const getRandomInt = () => {
 
 app.post('/api/persons', (req, res) => {
 
+  if(!req.body.name) {
+    return res.status(400).json({
+      error: 'name missing'
+    })
+  }
+
+  if(!req.body.number) {
+    return res.status(400).json({
+      error: 'number missing'
+    })
+  }
+
+  if(persons.some(p => p.name === req.body.name)) {
+    return res.status(400).json({
+      error: 'name must be unique'
+    })
+  }
+
   const person = {
     name: req.body.name,
     number: req.body.number,
