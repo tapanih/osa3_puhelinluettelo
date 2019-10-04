@@ -9,9 +9,9 @@ const password = process.argv[2]
 
 const url = `mongodb+srv://tapanih:${password}@cluster0-ylkxh.mongodb.net/phonebook?retryWrites=true`
 
-mongoose.connect(url, { 
+mongoose.connect(url, {
   useNewUrlParser: true,
-  useUnifiedTopology: true 
+  useUnifiedTopology: true
 })
 
 const personSchema = new mongoose.Schema({
@@ -27,7 +27,7 @@ if (process.argv.length === 3) {
     result.forEach(person => {
       console.log(person.name, person.number)
     })
-  mongoose.connection.close()
+    mongoose.connection.close()
   })
 }
 

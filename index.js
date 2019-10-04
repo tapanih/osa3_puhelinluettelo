@@ -25,7 +25,7 @@ app.use(morgan(tiny + ' :data', {
 
 const Person = require('./models/people')
 
-app.get('/api/persons', (req, res) => {
+app.get('/api/persons', (_req, res) => {
   Person.find({}).then(people => {
     res.json(people.map(person => person.toJSON()))
   })
@@ -61,14 +61,14 @@ app.post('/api/persons', (req, res, next) => {
   person.save().then(savedPerson => {
     res.json(savedPerson.toJSON())
   })
-  .catch(error => next(error))
+    .catch(error => next(error))
 })
 
 app.put('/api/persons/:id', (req, res, next) => {
 
-  const person = { 
+  const person = {
     name: req.body.name,
-    number: req.body.number 
+    number: req.body.number
   }
 
   Person.findByIdAndUpdate(req.params.id, person, { new: true })
@@ -78,21 +78,21 @@ app.put('/api/persons/:id', (req, res, next) => {
     .catch(error => next(error))
 })
 
-app.get('/info', (req, res, next) => {
-  Person.estimatedDocumentCount().then()
-  .then(count => {
-    res.send(`<p>Phonebook has info for ${count} people</p>
-              <p>${new Date()}</p>`)})
-  .catch(error => next(error))
+app.get('/info', (_req, res, next) => {
+  Person.estimatedDocumentCount()
+    .then(count => {
+      res.send(`<p>Phonebook has info for ${count} people</p>
+                <p>${new Date()}</p>`)})
+    .catch(error => next(error))
 })
 
-const unknownEndpoint = (request, response) => {
+const unknownEndpoint = (_request, response) => {
   response.status(404).send({ error: 'unknown endpoint' })
 }
 
 app.use(unknownEndpoint)
 
-const errorHandler = (error, req, res, next) => {
+const errorHandler = (error, _req, res, next) => {
   console.log(error.message)
 
   if (error.name === 'CastError' && error.kind === 'ObjectId') {
@@ -105,6 +105,7 @@ const errorHandler = (error, req, res, next) => {
 
 app.use(errorHandler)
 
+// eslint-disable-next-line no-undef
 const PORT = process.env.PORT
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
